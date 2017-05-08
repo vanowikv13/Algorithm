@@ -4,7 +4,7 @@
 
 
 template<typename T>
-void insetion(T *tab, size_t n) {
+void insetionSort(T *tab, size_t n) {
 	//Loop through all the elements
 	for (int j = 1; j < n; j++) {
 		T key = tab[j]; //start value
@@ -17,7 +17,7 @@ void insetion(T *tab, size_t n) {
 
 	}
 }
-
+//function need mergeSort
 template<typename T>
 void merge(T *tab, int p, int n, int mid) {
 	int i = p, j = mid + 1, q = p;
@@ -32,6 +32,7 @@ void merge(T *tab, int p, int n, int mid) {
 	}
 	while (i <= mid) tab[q++] = t[i++];
 }
+
 template<typename T>
 void mergeSort(T * tab, int p, int n) {
 	int mid;
@@ -48,12 +49,12 @@ void bubbleSort(T *tab, size_t n) {
 	for (int i = 0; i < n; i++) {
 		for (int j = n - 1; j >= 0; j--) {
 			if (tab[j] < tab[j - 1]) {
-				T x = tab[j];
-				tab[j] = tab[j - 1];
-				tab[j - 1] = x;
+				swap(tab[j], tab[j - 1]);
 			}
 		}
 	}
 }
+
+
 
 #endif // !SORTING_H
