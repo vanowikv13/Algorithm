@@ -1,9 +1,12 @@
 #pragma once
 #ifndef STACK_H
 #define STACK_H
+#include <iostream>
 
 template<typename T>
-class stack {
+class stack final {
+
+protected:
 	//for object in stack
 	struct obj {
 		obj*next;
@@ -12,12 +15,12 @@ class stack {
 	};
 
 public:
-	stack() {
+	inline stack() {
 		elements = 0;
 		last = first = nullptr;
 	}
 
-	stack(std::initializer_list<T> & ini) {
+	inline stack(std::initializer_list<T> & ini) {
 		for (auto it = ini.begin(); it != ini.end(); it++)
 			(*this).push(*it);
 	}
@@ -26,24 +29,24 @@ public:
 		clear();
 	}
 	//clear all element in stack
-	void clear() {
+	inline void clear() {
 		while (!empty()) {
 			pop();
 		}
 	}
 	//return size of element
-	int size() {
+	inline int size() const {
 		return elements;
 	}
 	//return true if stack is empty pr is not return false
-	bool empty() {
+	inline bool empty() const {
 		if ((this->size()) == 0)
 			return true;
 		else return false;
 	}
 
 	//add at the end element on stack
-	void push(T el) {
+	void push(T el) const {
 		auto ob = new obj;
 		ob->value = el;
 		ob->next = nullptr;
@@ -60,7 +63,7 @@ public:
 	}
 	//delete the last element from stack
 	void pop() {
-		checkIsEmpty();
+		tryC();
 		if (size() == 1) {
 			delete first;
 			elements--;
@@ -74,7 +77,7 @@ public:
 		}
 	}
 	//return the value from the last element in the stack
-	T top() {
+	inline T top() const {
 		checkIsEmpty();
 		return last->value;
 	}
@@ -91,7 +94,7 @@ public:
 		return *min;
 	}
 	//if don't find the obj return nullptr	
-	obj * search(T val) {
+	obj * search(const T val) {
 		checkIsEmpty();
 		obj * help = first;
 		do {
@@ -102,7 +105,7 @@ public:
 		return nullptr;
 	}
 	//cheng elment in stack by order
-	void changeOrder() {
+	void changeOrder() const {
 		checkIsEmpty();
 		obj * left = first, *right = last, help; int i = 1, j = size();
 		while (left != right && i < j) {
@@ -113,9 +116,9 @@ public:
 		}
 	}
 	
-	void swap(obj * left,obj * right) {
+	inline void swap(obj * left,obj * right) const {
 		auto help = *left;
-		auto leftCopyRight = [](obj * A, obj * B) {A->value = B->value; A->next = B->next; A->before = B->before; };
+		auto leftCopyRight = [this](obj * A, obj * B) {A->value = B->value; A->next = B->next; A->before = B->before; };
 		leftCopyRight(left, right);
 		leftCopyRight(left, &help);
 	}
@@ -125,10 +128,20 @@ protected:
 	obj*first, *last;
 
 	//check for function is empty
-	void checkIsEmpty() {
+	inline const char * checkIsEmpty() const {
 		if (empty())
 			throw "error -- stack is empty";
 	}
+	///don't work 
+	inline void tryC() const {
+		try {
+			checkIsEmpty();
+		}
+		catch (std::string str) {
+			std::cout << "exception : " << str << endl;
+		}
+	}
 };
+
 
 #endif // !STACK_H
