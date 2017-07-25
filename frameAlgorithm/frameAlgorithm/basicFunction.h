@@ -12,7 +12,9 @@ void write(T *tab, size_t n, bool xd = false) {
 		if (xd) std::cout << std::endl;
 		else std::cout << " ";
 	}
-	if (!xd)std::cout << std::endl;
+
+	if (!xd)
+		std::cout << std::endl;
 }
 
 //copy string from x with x to y without y
@@ -29,81 +31,6 @@ void swap(T & x1, T& x2) {
 	T x = x1;
 	x1 = x2;
 	x2 = x;
-}
-
-template<typename T>
-T divindeAndConquerSum(T *arr, int first, int last, bool maximalSum = true,bool increm = true) {
-	T sum= 0, temp=0;
-	if (increm) {
-		for (int i = first; i < last; i++) {
-			temp = temp + arr[i];
-			if (maximalSum) {
-				if (sum < temp)
-					sum = temp;
-			}
-			else {
-				if (sum > temp)
-					sum = temp;
-			}
-		}
-	}
-	else {
-		for (int i = first; i >= last; i--) {
-				temp = temp + arr[i];
-				if (maximalSum) {
-					if (sum < temp)
-						sum = temp;
-				}
-				else {
-					if (sum > temp)
-						sum = temp;
-				}
-		}
-	}
-
-
-	return sum;
-}
-
-
-//useb by divinde
-template<typename T>
-T conquer(T arr[], int first, int mid, int last,bool maximalSum = true) {
-
-	int i;
-	T left = arr[0], right = arr[0], temp = 0;
-	//first part of array
-	for (i = mid; i >= first; i--) {
-		temp = temp + arr[i];
-		if (maximalSum) {
-			if (left < temp) {
-				left = temp;
-			}
-		}
-		else {
-			if (left > temp) {
-				left = temp;
-			}
-		}
-	}
-	//divindeAndConquerSum(arr, mid, first, maximalSum, false);
-	temp = 0;
-	//secend part of array
-	for (i = (mid + 1); i < last; i++) {
-		temp = temp + arr[i];
-		if (maximalSum) {
-			if (right < temp) {
-				right = temp;
-			}
-		}
-		else {
-			if (right > temp) {
-				right = temp;
-			}
-		}
-	}
-
-	return (left + right);
 }
 
 //find maximum sum in the array
