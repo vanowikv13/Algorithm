@@ -1,11 +1,9 @@
 #pragma once
 #ifndef STACK_H
 #define STACK_H
-#include <iostream>
 
 template<typename T>
 class stack final {
-
 protected:
 	//for object in stack
 	struct obj {
@@ -138,7 +136,7 @@ protected:
 			checkIsEmpty();
 		}
 		catch (std::string str) {
-			std::cout << "exception : " << str << endl;
+			EXIT_FAILURE;
 		}
 	}
 };

@@ -55,6 +55,4 @@ void bubbleSort(T *tab, size_t n) {
 	}
 }
 
-
-
 #endif // !SORTING_H
