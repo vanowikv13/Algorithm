@@ -12,3 +12,5 @@ targetver.h
 *.sdf
 main.cpp
 ReadMe.txt
+*.cpp
+*.user

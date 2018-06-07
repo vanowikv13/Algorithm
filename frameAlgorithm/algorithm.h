@@ -10,6 +10,7 @@ namespace ALGO {
 #include "sorting.h"
 #include "basicFunction.h"
 #include "stack.h"
+#include "vector/vector.h"
 
 }
 
