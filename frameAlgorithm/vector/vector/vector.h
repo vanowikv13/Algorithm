@@ -8,10 +8,14 @@ template<typename value_type>
 class VECTOR {
 
 protected:
-	struct object {
+	class object {
+
+	protected:
 		//pointer to element on the left and right
 		object * left, *right;
-		//value in object
+		friend VECTOR;
+
+	public:
 		value_type value;
 
 		//contructor
@@ -73,37 +77,42 @@ public:
 	}
 
 	//return number of elements
-	int size() {
+	inline int size() noexcept {
 		return elements;
 	}
 
 	//check if VECTOR is empty
-	bool empty() {
+	inline bool empty() noexcept {
 		return elements > 0 ? false : true;
 	}
 
 	//return value of the first element
-	value_type& front() {
+	inline value_type& front() {
 		return first->value;
 	}
 
 	//return value of the last element
-	value_type& back() {
+	inline value_type& back() {
 		return last->value;
 	}
 
 	//return pointer to first element
-	decltype(auto) begin() {
+	inline decltype(auto) front_pointer() {
 		return first;
 	}
 
 	//return pointer to last element
-	decltype(auto) end() {
+	inline decltype(auto) back_pointer() {
 		return last;
 	}
 
+	inline decltype(auto) end() {
+		//pointer to the last element
+		return first;
+	}
+
 	//delete all data from VECTOR
-	void clear() {
+	inline void clear() {
 		while (!empty())
 			pop_back();
 	}
@@ -137,24 +146,24 @@ public:
 	}
 
 	value_type& operator[](const int index) {
-		interator = begin();
-		for (int i = 0; interator != end() && i <= index; i++) {
+		pointer = front_pointer();
+		for (int i = 0; pointer != end() && i <= index; i++) {
 			if (i == index)
-				return interator->value;
-			interator = interator->right;
+				return pointer->value;
+			pointer = pointer->right;
 		}
 		return UP->value;
 	}
 
 	//swap two object by pointer to that object
-	void swap(object * obj1, object * obj2) {
+	inline void swap(object * obj1, object * obj2) {
 		*(obj1) = obj2;
 	}
 
 	//return pointer to first element in VECTOR that contains x
 	decltype(auto) find(value_type x) {
 		if (!empty()) {
-			for (auto it = begin(); it != end();) {
+			for (auto it = front_pointer(); it != end();) {
 				if (it->value == x)
 					return it;
 				it = it->right;
@@ -168,7 +177,7 @@ protected:
 	size_t elements;
 	//not exisit object and not used
 	object * UP;
-	object * interator;
+	object * pointer;
 };
 
 #endif //! VECTOR_H
